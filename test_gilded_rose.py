@@ -1,22 +1,14 @@
 import json
 import subprocess
 import unittest
-from pprint import pprint
-from typing import Dict, List
+from typing import List
 
 from gilded_rose import Item, GildedRose
 
 
-
 def jsonfiy_items(items: List[Item]) -> List:
-    return [jsonify_item(item) for item in items]
+    return [repr(item) for item in items]
 
-def jsonify_item(item: Item) -> Dict:
-    return {
-        'name': item.name,
-        'sell_in': item.sell_in,
-        'quality': item.quality
-    }
 
 class GildedRoseTest(unittest.TestCase):
     def test_gilded_rose(self):
@@ -46,7 +38,3 @@ class GildedRoseTest(unittest.TestCase):
         out, _ = proc.communicate()
 
         self.assertEqual("", out.decode())
-
-
-if __name__ == '__main__':
-    unittest.main()
