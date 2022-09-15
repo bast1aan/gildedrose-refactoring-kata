@@ -4,8 +4,7 @@ class GildedRose(object):
         self.items = items
 
     def update_quality(self):
-        new_items = []
-        for item in self.items:
+        for i, item in enumerate(self.items):
             new_item = Item(item.name, item.sell_in, item.quality)
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
@@ -34,8 +33,7 @@ class GildedRose(object):
                 else:
                     if new_item.quality < 50:
                         new_item.quality = new_item.quality + 1
-            new_items.append(new_item)
-        self.items = new_items
+            self.items[i] = new_item
 
 class Item:
     def __init__(self, name, sell_in, quality):
