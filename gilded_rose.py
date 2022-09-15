@@ -4,35 +4,38 @@ class GildedRose(object):
         self.items = items
 
     def update_quality(self):
+        new_items = []
         for item in self.items:
+            new_item = Item(item.name, item.sell_in, item.quality)
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                        new_item.quality = item.quality - 1
             else:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
+                    new_item.quality = item.quality + 1
                     if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                        if item.quality < 50:
+                        if new_item.quality < 50:
                             if item.sell_in < 11:
-                                item.quality = item.quality + 1
+                                new_item.quality = new_item.quality + 1
                             if item.sell_in < 6:
-                                item.quality = item.quality + 1
+                                new_item.quality = new_item.quality + 1
 
             if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
+                new_item.sell_in = item.sell_in - 1
+            if new_item.sell_in < 0:
                 if item.name != "Aged Brie":
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                        if item.quality > 0:
+                        if new_item.quality > 0:
                             if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
+                                new_item.quality = new_item.quality - 1
                     else:
-                        item.quality = 0
+                        new_item.quality = 0
                 else:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
-
+                    if new_item.quality < 50:
+                        new_item.quality = new_item.quality + 1
+            new_items.append(new_item)
+        self.items = new_items
 
 class Item:
     def __init__(self, name, sell_in, quality):
