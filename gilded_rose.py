@@ -1,11 +1,30 @@
+from __future__ import annotations
+
 class GildedRose(object):
 
     def __init__(self, items):
         self.items = items
 
+    def handle_aged_brie(self, item) -> Item:
+        quality = item.quality
+        sell_in = item.sell_in
+        if item.quality < 50:
+            quality += 1
+        sell_in -= 1
+
+        if sell_in < 0:
+            if quality < 50:
+                quality += 1
+        return Item(name=item.name, sell_in=sell_in, quality=quality)
+
     def update_quality(self):
         for i, item in enumerate(self.items):
             new_item = Item(item.name, item.sell_in, item.quality)
+            if item.name == "Aged Brie":
+                new_item = self.handle_aged_brie(new_item)
+                self.items[i] = new_item
+                continue
+
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
