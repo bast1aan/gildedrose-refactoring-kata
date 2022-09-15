@@ -25,7 +25,7 @@ class GildedRose(object):
                 self.items[i] = new_item
                 continue
 
-            if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
+            if item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
                         new_item.quality = item.quality - 1
@@ -42,16 +42,13 @@ class GildedRose(object):
             if item.name != "Sulfuras, Hand of Ragnaros":
                 new_item.sell_in = item.sell_in - 1
             if new_item.sell_in < 0:
-                if item.name != "Aged Brie":
-                    if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                        if new_item.quality > 0:
-                            if item.name != "Sulfuras, Hand of Ragnaros":
-                                new_item.quality = new_item.quality - 1
-                    else:
-                        new_item.quality = 0
+                if item.name != "Backstage passes to a TAFKAL80ETC concert":
+                    if new_item.quality > 0:
+                        if item.name != "Sulfuras, Hand of Ragnaros":
+                            new_item.quality = new_item.quality - 1
                 else:
-                    if new_item.quality < 50:
-                        new_item.quality = new_item.quality + 1
+                    new_item.quality = 0
+
             self.items[i] = new_item
 
 class Item:
